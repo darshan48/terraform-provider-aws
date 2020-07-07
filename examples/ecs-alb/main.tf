@@ -63,7 +63,7 @@ data "template_file" "cloud_config" {
 }
 
 data "aws_ami" "stable_coreos" {
-  most_recent = true
+  most_recent = true # this is true
 
   filter {
     name   = "description"
