@@ -41,8 +41,8 @@ resource "aws_route_table_association" "a" {
 
 ### Compute
 
-resource "aws_autoscaling_group" "app" {
-  name                 = "tf-test-asg"
+resource "aws_autoscaling_group" "nginx" {
+  name                 = "demo-terraform-nginx"
   vpc_zone_identifier  = ["${aws_subnet.main.*.id}"]
   min_size             = "${var.asg_min}"
   max_size             = "${var.asg_max}"
@@ -80,7 +80,7 @@ data "aws_ami" "stable_coreos" {
     values = ["hvm"]
   }
 
-  owners = ["595879546273"] # CoreOS
+ # owners = ["595879546273"] # CoreOS
 }
 
 resource "aws_launch_configuration" "app" {
@@ -103,7 +103,7 @@ resource "aws_launch_configuration" "app" {
 ### Security
 
 resource "aws_security_group" "lb_sg" {
-  description = "controls access to the application ELB"
+  description = "controls access to the application ELB-darshan terraform"
 
   vpc_id = "${aws_vpc.main.id}"
   name   = "tf-ecs-lbsg"
@@ -190,8 +190,8 @@ resource "aws_ecs_service" "test" {
 
   load_balancer {
     target_group_arn = "${aws_alb_target_group.test.id}"
-    container_name   = "ghost"
-    container_port   = "2368"
+    container_name   = "nginx"
+    container_port   = "80"
   }
 
   depends_on = [
@@ -291,7 +291,7 @@ resource "aws_iam_role_policy" "instance" {
 
 resource "aws_alb_target_group" "test" {
   name     = "tf-example-ecs-ghost"
-  port     = 8080
+  port     = 80
   protocol = "HTTP"
   vpc_id   = "${aws_vpc.main.id}"
 }

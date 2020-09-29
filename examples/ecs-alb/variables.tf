@@ -1,6 +1,6 @@
 variable "aws_region" {
   description = "The AWS region to create things in."
-  default     = "us-west-2"
+  default     = "us-east-2"
 }
 
 variable "az_count" {
@@ -13,13 +13,13 @@ variable "key_name" {
 }
 
 variable "instance_type" {
-  default     = "t2.small"
+  default     = "t2.micro"
   description = "AWS instance type"
 }
 
 variable "asg_min" {
   description = "Min numbers of servers in ASG"
-  default     = "1"
+  default     = "2"
 }
 
 variable "asg_max" {
@@ -29,12 +29,12 @@ variable "asg_max" {
 
 variable "asg_desired" {
   description = "Desired numbers of servers in ASG"
-  default     = "1"
+  default     = "2"
 }
 
 variable "service_desired" {
   description = "Desired numbers of instances in the ecs service"
-  default     = "1"
+  default     = "2"
 }
 
 variable "admin_cidr_ingress" {
